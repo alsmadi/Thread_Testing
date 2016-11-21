@@ -48,18 +48,26 @@ public class TestShortestThread4 {
 		try {
                     file1=null;
                     printWriter=null;
+                    file1 = new File ("out"+counter+counter1+".csv");
                  //   FILEPATH_WRITE=FILEPATH_WRITE+"\\out"+counter+".csv";
 		//	fileToWrite = new PrintWriter(new File(FILEPATH_WRITE)); //for random write,independent of thread obstacles 
 			RandomAccessFile file = new RandomAccessFile(FILEPATH, "r");//for random read,independent of thread obstacles 
 			
                       //  while (true) {
                             while ((readLine = file.readLine()) != null) {
+                                
                         if(counter>10000){
+                            counter1++;
+                            printWriter.close();
+                              //        thread1.stop();
+                            file1 = new File ("out"+counter+counter1+".csv");
+                            counter=0;
+                        }
+                        
+                        if(counter==0){
                             try{
                     int size = counter/10;
-                   printWriter.close();
                    
-                   thread1.stop();
                    Runnable printA = new TestPath(file1);
     //Runnable printB = new PrintChar('b', 100);
     //Runnable print100 = new PrintNum(100);
@@ -77,15 +85,16 @@ public class TestShortestThread4 {
                 catch(Exception ex){
                     
                 }
-                            counter=0;}
-                        if(counter==0){
-                            counter1++;
-                            file1 = new File ("out"+counter+counter1+".csv");
+                     //       counter=0;}
+                     //   if(counter==0){
+                       //     counter1++;
+                            
              printWriter = new PrintWriter (file1);
              vertices2= new ArrayList<String>();
              vertices1.add(vertices2);
      edges2= new ArrayList<WeightedEdge>();
      edges1.add(edges2);
+    // thread1.start();
                          //   FILEPATH_WRITE=FILEPATH_WRITE+"\\out"+counter+".csv";
 			//fileToWrite = new PrintWriter(new File(FILEPATH_WRITE));
                         }
