@@ -41,8 +41,10 @@ public class TestShortestThread4 {
                 System.out.println("starting time..."+  currentTimeMillis);
                 File file1=null;
                 PrintWriter printWriter;
+                Thread thread1=null;
                 int counter=0;
                 int counter1=0;
+                String readLine=null;
 		try {
                     file1=null;
                     printWriter=null;
@@ -50,17 +52,20 @@ public class TestShortestThread4 {
 		//	fileToWrite = new PrintWriter(new File(FILEPATH_WRITE)); //for random write,independent of thread obstacles 
 			RandomAccessFile file = new RandomAccessFile(FILEPATH, "r");//for random read,independent of thread obstacles 
 			
-                        while (true) {
+                      //  while (true) {
+                            while ((readLine = file.readLine()) != null) {
                         if(counter>10000){
                             try{
                     int size = counter/10;
                    printWriter.close();
+                   
+                   thread1.stop();
                    Runnable printA = new TestPath(file1);
     //Runnable printB = new PrintChar('b', 100);
     //Runnable print100 = new PrintNum(100);
 
     // Create threads
-    Thread thread1 = new Thread(printA);
+    thread1 = new Thread(printA);
    
 
     // Start threads
@@ -84,10 +89,10 @@ public class TestShortestThread4 {
                          //   FILEPATH_WRITE=FILEPATH_WRITE+"\\out"+counter+".csv";
 			//fileToWrite = new PrintWriter(new File(FILEPATH_WRITE));
                         }
-			String readLine = file.readLine();
-                        if(readLine.length()>5){
+		//	String readLine = file.readLine();
+                     //   if(readLine!=null && readLine.length()>5){
                         printWriter.println(readLine); //.writeUTF(readLine); 
-                        }
+                      //  }
                         //fileToWrite.writeBytes(System.getProperty("line.separator"));
                         counter++;
                        
